@@ -1,0 +1,16 @@
+operators:
+* and  
++ OR 
+~ NOT
+@ XOR
+PRIMARY_INPUT:
+a0 a1 a2 T10 !
+Functions:
+O0 = ((a0+a2)+(a1@a2))
+O1 = (T10*a2)
+O2 = (O1@a2)
+O3 = (O2+O1)
+O4 = (a1+a2)
+O6 = (a0+a2)
+! 
+ 
