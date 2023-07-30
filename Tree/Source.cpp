@@ -5,15 +5,15 @@
 #include <thread>
 #include <chrono>
 using namespace std;
-//////////////////////////////
+// Definition of the binary search tree node
 struct node
 {
-    int data;
-    struct node* left;
-    struct node* right;
-    int for_balance;
+    int data; // The value of the node
+    struct node* left; // Pointer to the left child
+    struct node* right; // Pointer to the right child
+    int for_balance; // Keeps track of balance factor for AVL tree
 };
-/////////////////////////////
+// Function to get the balance factor of a node
 int func_for_balance(struct node* N)
 {
     if (N == NULL)
@@ -21,7 +21,7 @@ int func_for_balance(struct node* N)
     return N->for_balance;
 }
 
-/////////////////////////////
+// Function to find the minimum value node in the tree
 struct node* min(struct node* r)
 {
     struct node* p = r;
@@ -31,7 +31,7 @@ struct node* min(struct node* r)
 
     return p;
 }
-//////////////////////////////////////////////////////////////// 
+// Function to find the maximum value node in the tree
 
 struct node* maxi(struct node* r)
 {
@@ -42,8 +42,7 @@ struct node* maxi(struct node* r)
 
     return p;
 }
-//**************************************************************************************
-
+// Function to calculate the maximum of two integers
 int max(int a, int b)
 {
     if (a > b)
@@ -51,7 +50,7 @@ int max(int a, int b)
     else
         return b;
 }
-//**************************************************************************************
+// Function to create a new node with given data
 
 struct node* create(int data_node)
 {
@@ -64,7 +63,8 @@ struct node* create(int data_node)
     n->for_balance = 1;
     return(n);
 }
-//**************************************************************************************
+// Function to perform Left-Left Rotation
+
 struct node* LL_Rotate(struct node* A)
 {
 
@@ -81,7 +81,8 @@ struct node* LL_Rotate(struct node* A)
 
     return B;
 }
-//**************************************************************************************
+// Function to perform Right-Right Rotation
+
 struct node* RR_Rotate(struct node* A)
 {
 
@@ -98,7 +99,7 @@ struct node* RR_Rotate(struct node* A)
 
     return B;
 }
-//************************************************************************************** 
+// Function to calculate the balance factor of a node
 int Balance(struct node* r)
 {
     if (r == NULL)
@@ -106,7 +107,7 @@ int Balance(struct node* r)
     return func_for_balance(r->left) - func_for_balance(r->right);
 }
 
-//**************************************************************************************
+// Function to perform a preorder traversal of the tree
 
 void preorder(struct node* r)
 {
@@ -117,6 +118,9 @@ void preorder(struct node* r)
         preorder(r->right);
     }
 }
+
+// Function to perform an inorder traversal of the tree
+
 void inorder(struct node* r)
 {
     if (r != NULL)
@@ -126,7 +130,8 @@ void inorder(struct node* r)
         inorder(r->right);
     }
 }
-//**************************************************************************************
+
+// Function to add a new node with the given key to the tree
 struct node* add(struct node* r, int key)
 {
 
@@ -148,11 +153,11 @@ struct node* add(struct node* r, int key)
 
     // Left Left 
     if (b > 1 && key < r->left->data) {
-        
+        // Perform Left-Left rotation
         cout << "\t !! my AVL binary tree need rotation now!    wait ...  \n";
         chrono::seconds time(2); //2 second
         this_thread::sleep_for(time);
-        cout << "\t     ÉÍÍ¯\n\tÍÍ>> ºLLº rotation done !\n\t     ÈÍÍ¼\n";
+        cout << "\t     ï¿½ï¿½Í¯\n\tï¿½ï¿½>> ï¿½LLï¿½ rotation done !\n\t     ï¿½ï¿½Í¼\n";
         /////////
         chrono::seconds time1(1); //1 second
         this_thread::sleep_for(time);
@@ -162,11 +167,11 @@ struct node* add(struct node* r, int key)
     }
     // Right Right 
     if (b < -1 && key > r->right->data) {
-        
+        // Perform Right-Right rotation
         cout << "\t !! my AVL binary tree need rotation now!    wait ...  \n";
         chrono::seconds time(2); //2 second
         this_thread::sleep_for(time);
-        cout << "\t     ®ÍÍ»\n\tÍÍ>> ºRRº rotation done !\n\t     ÈÍÍ¼\n";
+        cout << "\t     ï¿½ï¿½Í»\n\tï¿½ï¿½>> ï¿½RRï¿½ rotation done !\n\t     ï¿½ï¿½Í¼\n";
         ////////
         chrono::seconds time1(1); //1 second
         this_thread::sleep_for(time);
@@ -180,7 +185,7 @@ struct node* add(struct node* r, int key)
         cout << "\t !! my AVL binary tree need rotation now!    wait ...  \n";
         chrono::seconds time(2); //2 second
         this_thread::sleep_for(time);
-        cout << "\t     ÉÍÍ»\n\tÍÍ>> ºLRº rotation done !\n\t     ÈÍÍ¼\n";
+        cout << "\t     ï¿½ï¿½Í»\n\tï¿½ï¿½>> ï¿½LRï¿½ rotation done !\n\t     ï¿½ï¿½Í¼\n";
         ////////
         chrono::seconds time1(1); //1 second
         this_thread::sleep_for(time);
@@ -197,7 +202,7 @@ struct node* add(struct node* r, int key)
         chrono::seconds time(2); //2 second
         this_thread::sleep_for(time);
         
-        cout << "\t     ÉÍÍ»\n\tÍÍ>> ºRLº rotation done !\n\t     ÈÍÍ¼\n";
+        cout << "\t     ï¿½ï¿½Í»\n\tï¿½ï¿½>> ï¿½RLï¿½ rotation done !\n\t     ï¿½ï¿½Í¼\n";
         
         chrono::seconds time1(1); //1 second
         this_thread::sleep_for(time);
@@ -209,6 +214,7 @@ struct node* add(struct node* r, int key)
     return r;
 }
 
+// Function to remove a node with the given key from the tree
 
 struct node* remove(struct node* r, int key)
 {
@@ -262,28 +268,28 @@ struct node* remove(struct node* r, int key)
     // left left
     if (b > 1 && Balance(r->left) >= 0) {
         cout << "\t !! my AVL binary tree need rotation now!    wait ...  \n";
-        cout << "\t     ÉÍÍ¯\n\tÍÍ>> ºLLº rotation done !\n\t     ÈÍÍ¼\n";
+        cout << "\t     ï¿½ï¿½Í¯\n\tï¿½ï¿½>> ï¿½LLï¿½ rotation done !\n\t     ï¿½ï¿½Í¼\n";
         return LL_Rotate(r);
     }
     //right right
     if (b > 1 && Balance(r->left) < 0)
     {
         cout << "\t !! my AVL binary tree need rotation now!    wait ...  \n";
-        cout << "\t     ®ÍÍ»\n\tÍÍ>> ºRRº rotation done !\n\t     ÈÍÍ¼\n";
+        cout << "\t     ï¿½ï¿½Í»\n\tï¿½ï¿½>> ï¿½RRï¿½ rotation done !\n\t     ï¿½ï¿½Í¼\n";
         r->left = RR_Rotate(r->left);
         return LL_Rotate(r);
     }
     //left right
     if (b < -1 && Balance(r->right) <= 0) {
         cout << "\t !! my AVL binary tree need rotation now!    wait ...  \n";
-        cout << "\t     ®ÍÍ»\n\tÍÍ>> ºLRº rotation done !\n\t     ÈÍÍ¼\n";
+        cout << "\t     ï¿½ï¿½Í»\n\tï¿½ï¿½>> ï¿½LRï¿½ rotation done !\n\t     ï¿½ï¿½Í¼\n";
         return RR_Rotate(r);
     }
     //right left
     if (b < -1 && Balance(r->right) > 0)
     {
         cout << "\t !! my AVL binary tree need rotation now!    wait ...  \n";
-        cout << "\t     ®ÍÍ»\n\tÍÍ>> ºLRº rotation done !\n\t     ÈÍÍ¼\n";
+        cout << "\t     ï¿½ï¿½Í»\n\tï¿½ï¿½>> ï¿½LRï¿½ rotation done !\n\t     ï¿½ï¿½Í¼\n";
         r->right = LL_Rotate(r->right);
         return RR_Rotate(r);
     }
@@ -322,16 +328,16 @@ int main()
     while (select != 4) {
 
         system("cls");
-        cout << "  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n  ³ Developed by -*AmirHosseinAliZadeh*- ³\n  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n";
+        cout << "  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿\n  ï¿½ Developed by -*AmirHosseinAliZadeh*- ï¿½\n  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n";
         
-        cout << "\n\n±±±± Menu :\n          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»\n          º please choose one of this cases :  º\n          º                                    º\n          º    1- Add                          º\n          º    2- Search                       º\n          º    3- Delete                       º\n          º    4- Exit                         º\n          ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼\n";
+        cout << "\n\nï¿½ï¿½ï¿½ï¿½ Menu :\n          ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»\n          ï¿½ please choose one of this cases :  ï¿½\n          ï¿½                                    ï¿½\n          ï¿½    1- Add                          ï¿½\n          ï¿½    2- Search                       ï¿½\n          ï¿½    3- Delete                       ï¿½\n          ï¿½    4- Exit                         ï¿½\n          ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼\n";
         cin >> select;
         switch (select) {
         case 1:
             system("cls");
-            cout << "\n±±±± Add\n\n";
-            //cout << "ÄÄÄÄÄÄÄÄÄÄplease add your data_node one by one : \n";
-            cout << "ðððððððð please Enter your key (example : 98440140 ): \n";
+            cout << "\nï¿½ï¿½ï¿½ï¿½ Add\n\n";
+            //cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½please add your data_node one by one : \n";
+            cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ please Enter your key (example : 98440140 ): \n";
             cin >> key;
             cout << "\n Plz wait ... \n\n";
             for (int i = 0; i < key.size(); i++) {
@@ -339,18 +345,18 @@ int main()
                 this_thread::sleep_for(time);
                 cout <<" "<<key[i] << "   added"<< endl;
                 r = add(r, key[i] - '0');
-                cout << "\n     ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»\nÍÍÍ¯ º Inorder  Traversal is : "; inorder(r);
-                cout << "\nÍÍÍ¯ º Preorder Traversal is : "; preorder(r);
-                cout << "\n     ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼\n\n";
+                cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»\nï¿½ï¿½Í¯ ï¿½ Inorder  Traversal is : "; inorder(r);
+                cout << "\nï¿½ï¿½Í¯ ï¿½ Preorder Traversal is : "; preorder(r);
+                cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼\n\n";
             }
-            cout << "\n\n±±± Final result :\n\n";
-            cout << "\n     ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»\nÍÍÍ¯ º Inorder Traversal is : "; inorder(r);
-            cout << "º\n     ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼\n\n";
+            cout << "\n\nï¿½ï¿½ï¿½ Final result :\n\n";
+            cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»\nï¿½ï¿½Í¯ ï¿½ Inorder Traversal is : "; inorder(r);
+            cout << "ï¿½\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼\n\n";
             if (key == "98440140") {
                 cout << "                           " << r->data << "\n                          / \\\n                         " << r->left->data << "   " << r->right->data << "\n                        / \\\n                       " << r->left->left->data << "   " << r->left->right->data << endl;
             }
-            cout << "\n     ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»\nÍÍÍ¯ º Preorder Traversal is : "; preorder(r);
-            cout << "º\n     ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼\n";
+            cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»\nï¿½ï¿½Í¯ ï¿½ Preorder Traversal is : "; preorder(r);
+            cout << "ï¿½\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼\n";
             cout << "\n the Add_progrom finished . click on any button(except POWER :) )  and go back to menu ...";
             system("pause>n");
             break;
@@ -358,7 +364,7 @@ int main()
         case 2:
             system("cls");
             int number_search;
-            cout << "\n±±± Search\n plz search your number : \n";
+            cout << "\nï¿½ï¿½ï¿½ Search\n plz search your number : \n";
             cin>>number_search;
             if (search(r, number_search))
                 cout << "Yes";
@@ -370,31 +376,31 @@ int main()
         case 3:
             system("cls");
 
-            cout << "\n±±± Delete\n";
+            cout << "\nï¿½ï¿½ï¿½ Delete\n";
 
-            cout << "ðððððððð My tree is : \n";
+            cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ My tree is : \n";
 
-            cout << "\n     ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»\nÍÍÍ¯ º Inorder Traversal is : "; inorder(r);
-            cout << "\n     ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼\n\n";
+            cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»\nï¿½ï¿½Í¯ ï¿½ Inorder Traversal is : "; inorder(r);
+            cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼\n\n";
             if (key == "98440140") {
                 cout << "                           " << r->data << "\n                          / \\\n                         " << r->left->data << "   " << r->right->data << "\n                        / \\\n                       " << r->left->left->data << "   " << r->left->right->data << endl;
             }
-            cout << "\n     ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»\nÍÍÍ¯ º Preorder Traversal is : "; preorder(r);
-            cout << "\n     ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼\n";
-            //cout << "ðððððððð Plz delete every node do you want ? \n";
+            cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»\nï¿½ï¿½Í¯ ï¿½ Preorder Traversal is : "; preorder(r);
+            cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼\n";
+            //cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Plz delete every node do you want ? \n";
             
             while (select_delete != '*') {
-                cout << "ðððððððð Plz delete every node do you want ? for finish click '*' \n";
+                cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Plz delete every node do you want ? for finish click '*' \n";
                 cin >> select_delete;
                 r = remove(r, select_delete - '0');
                 if (select_delete != '*') {
-                    cout << "\n     ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»\nÍÍÍ¯ º Inorder Traversal is : "; inorder(r);
-                    cout << "\n     ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼\n\n";
+                    cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»\nï¿½ï¿½Í¯ ï¿½ Inorder Traversal is : "; inorder(r);
+                    cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼\n\n";
                     /*if (key == "98440140") {
                         cout << "                           " << r->data << "\n                          / \\\n                         " << r->left->data << "   " << r->right->data << "\n                        / \\\n                       " << r->left->left->data << "   " << r->left->right->data << endl;
                     }*/
-                    cout << "\n     ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»\nÍÍÍ¯ º Preorder Traversal is : "; preorder(r);
-                    cout << "\n     ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼\n";
+                    cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»\nï¿½ï¿½Í¯ ï¿½ Preorder Traversal is : "; preorder(r);
+                    cout << "\n     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼\n";
                 }
                 else
                     cout << "\n the delete progrom finished . click on any button except POWER :) and go back to menu ...";
